@@ -17,18 +17,8 @@ class HomePageTest(TestCase):
         expected_html = render_to_string('home.html')
         self.assertEqual(response.content.decode(), expected_html)
 
-    def test_home_page_only_saves_items_when_necessary(self):
-        request = HttpRequest()
-        home_page(request)
-        self.assertEqual(Item.objects.count(), 0)
-
 class NewListTest(TestCase):
     def test_home_page_can_save_a_POST_request(self):
-        #request = HttpRequest()
-        #request.method = 'POST'
-        #request.POST['item_text'] = 'A new list item'
-        #
-        #home_page(request)
         self.client.post(
             '/lists/new',
             data={'item_text': 'A new list item'}
@@ -38,11 +28,6 @@ class NewListTest(TestCase):
         self.assertEqual(new_item.text, 'A new list item')
 
     def test_home_page_redirects_after_POST(self):
-        #request = HttpRequest()
-        #request.method = 'POST'
-        #request.POST['item_text'] = 'A new list item'
-        #
-        #response = home_page(request)
         response = self.client.post(
             '/lists/new',
             data={'item_text': 'A new list item'}
@@ -80,4 +65,3 @@ class ItemModelTest(TestCase):
         second_saved_item = saved_items[1]
         self.assertEqual(first_saved_item.text, 'The first (ever) list item')
         self.assertEqual(second_saved_item.text, 'Item the second')
-
