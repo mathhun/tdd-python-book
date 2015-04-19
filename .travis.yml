@@ -1,5 +1,5 @@
 language: python
 python: 3.4.2
 
-script
+script:
 - python manage.py test lists
