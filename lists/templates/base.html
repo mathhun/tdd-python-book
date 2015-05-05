@@ -43,7 +43,13 @@
     <script src="/static/list.js"></script>
     <script>
       $(document).ready(function() {
-        Superlists.Accounts.initialize(navigator)
+        var usre = "{{ user.email }}" || null;
+        var token = "{{ csrf_token }}";
+        var urls = {
+          login: "TODO",
+          logout: "TODO"
+        };
+        Superlists.Accounts.initialize(navigator, user, token, urls)
       });
     </script>
   </body>
